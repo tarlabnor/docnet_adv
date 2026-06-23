@@ -5,16 +5,16 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <NoWarn>1701;1702;1591;0649</NoWarn>
 
-    <version>$(VersionSuffix)</version>
+    <version>2.7.1</version>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
 
-    <Authors>Modestas Petravicius</Authors>
-    <Product>DocNet</Product>
+    <Authors>tarlabnor</Authors>
+    <Product>DocNetAdv</Product>
     <Description>DocNET is a fast PDF editing and reading library for modern .NET applications.</Description>
     <Copyright>MIT</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/GowenGit/docnet</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/GowenGit/docnet</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/tarlabnor/docnet_adv</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/tarlabnor/docnet_adv</RepositoryUrl>
     <PackageTags>PDF; Reader; netstandard; PDFium; JPEG; JPG</PackageTags>
     <PackageIcon>icon.png</PackageIcon>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
