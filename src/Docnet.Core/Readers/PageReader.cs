@@ -138,6 +138,37 @@ namespace Docnet.Core.Readers
             }
         }
 
+        /// <inheritdoc />
+        public IEnumerable<Character> GetLooseCharacters()
+        {
+            lock (DocLib.Lock)
+            {
+                var width = GetPageWidth();
+                var height = GetPageHeight();
+                var charCount = fpdf_text.FPDFTextCountChars(_text);
+
+                for (var i = 0; i < charCount; i++)
+                {
+                    var charCode = (char)fpdf_text.FPDFTextGetUnicode(_text, i);
+
+                    var rect = new fpdf_text.LooseCharRect();
+                    var success = fpdf_text.FPDFTextGetLooseCharBox(_text, i, ref rect);
+
+                    if (!success)
+                        continue;
+
+                    var (adjustedLeft, adjustedTop) = GetAdjustedCoords(width, height, rect.Left, rect.Top);
+                    var (adjustedRight, adjustedBottom) = GetAdjustedCoords(width, height, rect.Right, rect.Bottom);
+
+                    var box = new BoundBox(adjustedLeft, adjustedTop, adjustedRight, adjustedBottom);
+                    var fontSize = fpdf_text.FPDFTextGetFontSize(_text, i);
+                    var angle = fpdf_text.FPDFTextGetCharAngle(_text, i);
+
+                    yield return new Character(charCode, box, angle, fontSize);
+                }
+            }
+        }
+
         private (int x, int y) GetAdjustedCoords(int width, int height, double pageX, double pageY)
         {
             var x = 0;

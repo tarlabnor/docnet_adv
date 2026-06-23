@@ -2087,7 +2087,8 @@ namespace Docnet.Core.Bindings
             return __ret;
         }
 
-        private static IntPtr NativeUtf8FromString(string managedString) {
+        private static IntPtr NativeUtf8FromString(string managedString)
+        {
             int len = Encoding.UTF8.GetByteCount(managedString);
             byte[] buffer = new byte[len + 1];
             Encoding.UTF8.GetBytes(managedString, 0, managedString.Length, buffer, 0);
@@ -2562,6 +2563,12 @@ namespace Docnet.Core.Bindings
 
             [SuppressUnmanagedCodeSecurity]
             [DllImport("pdfium", CallingConvention = CallingConvention.Cdecl,
+                EntryPoint = "FPDFText_GetLooseCharBox")]
+            internal static extern int FPDFTextGetLooseCharBox(IntPtr text_page, int index,
+                ref LooseCharRect rect);
+
+            [SuppressUnmanagedCodeSecurity]
+            [DllImport("pdfium", CallingConvention = CallingConvention.Cdecl,
                 EntryPoint = "FPDFText_GetCharOrigin")]
             internal static extern int FPDFTextGetCharOrigin(IntPtr text_page, int index, double* x,
                 double* y);
@@ -2741,6 +2748,22 @@ namespace Docnet.Core.Bindings
                     }
                 }
             }
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct LooseCharRect
+        {
+            public float Left;
+            public float Top;
+            public float Right;
+            public float Bottom;
+        }
+
+        public static bool FPDFTextGetLooseCharBox(FpdfTextpageT text_page, int index,
+            ref LooseCharRect rect)
+        {
+            var __arg0 = ReferenceEquals(text_page, null) ? IntPtr.Zero : text_page.__Instance;
+            return __Internal.FPDFTextGetLooseCharBox(__arg0, index, ref rect) == 1;
         }
 
         public static int FPDFTextGetCharOrigin(FpdfTextpageT text_page, int index,

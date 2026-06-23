@@ -35,6 +35,15 @@ namespace Docnet.Core.Readers
         IEnumerable<Character> GetCharacters();
 
         /// <summary>
+        /// Get all page characters with their loose bounding boxes.
+        /// Unlike <see cref="GetCharacters"/>, derives boxes from font
+        /// ascent/descent metrics rather than glyph outlines — works for
+        /// all font types including OCR invisible-text overlays where
+        /// GetCharacters returns zero-area boxes.
+        /// </summary>
+        IEnumerable<Character> GetLooseCharacters();
+
+        /// <summary>
         /// Return a byte representation
         /// of the page image.
         /// Byte array is formatted as
